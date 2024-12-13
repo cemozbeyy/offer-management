@@ -8,5 +8,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'offer-management';
+  title = 'offer-management'; onBack(): void {
+    console.log('onBack');
+  }
 }
