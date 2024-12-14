@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: 'signup.component.html',
     styleUrls: ['signup.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: []
 })
 
 export class SignUpComponent implements OnInit {

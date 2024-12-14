@@ -1,11 +1,24 @@
 import { Routes } from '@angular/router';
-import { OfferComponent } from './offer/offer.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignUpComponent } from './auth/signup/signup.component';
+
+import { OfferComponent, OfferListComponent, OfferPageComponent } from './offer';
+import { LoginComponent, SignUpComponent } from './auth';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'offer', pathMatch: 'full' },
-    { path: 'offer', component: OfferComponent },
+    {
+        path: 'offer', component: OfferComponent,
+        children: [
+            {
+                path: 'offer-list',
+                component: OfferListComponent,
+            },
+            {
+                path: 'offer-page',
+                component: OfferPageComponent,
+            }
+        ]
+    },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignUpComponent },
 ];

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: 'offer-list.component.html',
     styleUrls: ['offer-list.component.scss'],
     standalone: true,
-    imports: [CommonModule]
+    imports: []
 })
 
 export class OfferListComponent implements OnInit {
