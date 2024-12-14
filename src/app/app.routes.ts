@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
 
 import { OfferComponent, OfferListComponent, OfferPageComponent } from './offer';
-import { LoginComponent, SignUpComponent } from './auth';
+import { AuthGuard, LoginComponent, SignUpComponent } from './auth';
 
 
 export const routes: Routes = [
     { path: '', redirectTo: 'offer', pathMatch: 'full' },
     {
         path: 'offer', component: OfferComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'offer-list',

@@ -13,16 +13,6 @@ import { ToastrModule } from 'ngx-toastr';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  private router = inject(Router);
 
-  ngOnInit() {
-    const isHaveCookie = localStorage.getItem("userCookie")!;
-    console.log(isHaveCookie)
-    if (isHaveCookie) {
-      this.router.navigate(['./offer']);
-    }
-    else {
-      this.router.navigate(['./login']);
-    }
-  }
+  ngOnInit() { }
 }

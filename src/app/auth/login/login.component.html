@@ -20,14 +20,11 @@
                     <span>Remember me</span>
                 </label>
             </div>
-            <div nz-col [nzSpan]="12">
-                <a class="login-form-forgot">Forgot password</a>
-            </div>
         </div>
         <div class="w-100 pb-3">
             <button nz-button class="w-100" [nzType]="'primary'">Log in</button>
         </div>
         Or
-        <a>register now!</a>
+        <a [href]="['./signup']">register now!</a>
     </form>
 </div>
