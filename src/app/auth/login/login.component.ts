@@ -8,6 +8,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ToastrService } from 'ngx-toastr';
+import { LoginService } from '../login.service';
 
 @Component({
     selector: 'login-component',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
     private router = inject(Router);
     private fb = inject(FormBuilder);
     toastr = inject(ToastrService);
+    loginService = inject(LoginService);
     //Injections END
     constructor() {
         this.validateForm = this.fb.group({
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit {
 
     submit(): void {
         if (this.validateForm.valid) {
-            const userList = this.getUserList();
+            const userList = this.loginService.getUserList();
             const { username, password } = this.validateForm.value;
 
             // API simülasyonu: Kullanıcı doğrulaması
@@ -65,8 +67,5 @@ export class LoginComponent implements OnInit {
             });
         }
     }
-    private getUserList(): any[] {
-        const userList = localStorage.getItem('userCookie');
-        return userList ? JSON.parse(userList) : [];
-    }
+
 }
