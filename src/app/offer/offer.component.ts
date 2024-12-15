@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { OfferPageComponent } from './offer-page/offer-page.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 
@@ -8,7 +7,6 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
     templateUrl: 'offer.component.html',
     standalone: true,
     imports: [
-        OfferPageComponent,
         RouterOutlet,
         NzPageHeaderModule
     ]
