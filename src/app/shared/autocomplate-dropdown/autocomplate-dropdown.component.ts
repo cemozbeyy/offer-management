@@ -6,14 +6,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { AutocompleteOptionGroups } from '../../core/interfaces/cities.interface';
+import { DropdownOptions } from '../../core/types';
 
-interface DropdownOptionObject {
-  value: string;
-  label: string;
-}
-
-export type DropdownOption = string | DropdownOptionObject;
-export type DropdownOptions = DropdownOption[] | Record<string, string[]>;
 
 @Component({
   standalone: true,
