@@ -1,15 +1,21 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
+import { Component, Input, OnInit, ViewEncapsulation, forwardRef } from '@angular/core';
+import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { AutocompleteOptionGroups } from '../../core/interfaces/cities.interface';
+
+
 
 @Component({
+    standalone: true,
     selector: 'dropdown-component',
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
-    standalone: true,
+    encapsulation: ViewEncapsulation.None,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -17,12 +23,19 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
             multi: true
         }
     ],
-    imports: [CommonModule, ReactiveFormsModule, NzSelectModule, FormsModule, NzAutocompleteModule]
+    imports: [FormsModule, NzAutocompleteModule, NzIconModule, NzInputModule, CommonModule, ReactiveFormsModule, NzSelectModule]
 })
 export class DropdownComponent implements OnInit, ControlValueAccessor {
+
     @Input() type: string = '';  // Bileşen tipini alacak
+
     selectedValue: string | null = null;
+    optionGroups: AutocompleteOptionGroups[] = [];
     searchValue: string = '';  // Kullanıcı arama terimi
+    filteredOptions: string[] = []; // aranan kelimeye göre gelen değer
+    inputValue?: string;  // kullanıcının girdiği değer
+    filteredCities: string[] = []; // kullanıcı arama yaptığıda filtrelenecek şehirler
+
     // Seçenekler START
     modes = ['LCL', 'FCL', 'Air'];
     movementTypes = ['Door to Door', 'Port to Door', 'Door to Port', 'Port to Port'];
@@ -41,15 +54,15 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
         { value: 'TRY', label: 'Turkish Lira' }
     ];
     // Seçenekler END
-    filteredOptions: string[] = []; // aranan kelimeye göre gelen değer
-    inputValue?: string;  // Kullanıcının girdiği değer
+
 
     // ControlValueAccessor için gerekli metotlar
     onChange: any = () => { };
     onTouch: any = () => { };
-
-    ngOnInit() {
-        this.filteredOptions = this.getAllCities();
+    ngOnInit(): void {
+        if (this.type === 'countryCity') {
+            this.optionGroups = this.getCountryCityGroups();
+        }
     }
 
     // type'a göre doğru listeyi döndürür
@@ -75,7 +88,6 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
                 return [];
         }
     }
-
     // type'a göre placeholder döndürür
     getPlaceholder() {
         switch (this.type) {
@@ -88,16 +100,15 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
             case 'packageType':
                 return 'Select Package Type';
             case 'unit1':
-                return 'Select Unit (Length)';
+                return 'Select Unit 1';
             case 'unit2':
-                return 'Select Unit (Weight)';
+                return 'Select Unit 2';
             case 'currency':
                 return 'Select Currency';
             default:
                 return 'Select an option';
         }
     }
-
     onChangeInput(value: string): void {
         const lowerCaseValue = value.toLowerCase();
         this.filteredOptions = this.getAllCities().filter(city => city.toLowerCase().includes(lowerCaseValue));
@@ -113,11 +124,33 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
         return allCities;
     }
 
-    // ControlValueAccessor metotları
+    getCountryCityGroups(): AutocompleteOptionGroups[] {
+        return Object.keys(this.countriesCities).map((country: string) => ({
+            title: country,
+            children: this.countriesCities[country].map((city: string) => ({ title: city }))
+        }));
+    }
+
+    // input değeri değiştiğinde şehirleri filtrele ve optionGroupsu güncelle
+    onSearch(value: string): void {
+        if (value) {
+            // her ülkenin şehirlerini filtrele
+            this.optionGroups = this.getCountryCityGroups().map(group => ({
+                ...group,
+                children: group.children!.filter(option =>
+                    option.title.toLowerCase().includes(value.toLowerCase()) // şehir ismi filtreleme
+                )
+            })).filter(group => group.children.length > 0);  // eğer o ülkenin şehri kalmazsa o grup silinir
+        } else {
+            // eğer input boşsa, tüm gruplar geri yükle
+            this.optionGroups = this.getCountryCityGroups();
+        }
+    }
+
+    // ControlValueAccessor metotları 
     writeValue(value: any): void {
         this.selectedValue = value;
     }
-
 
     registerOnChange(fn: any): void {
         this.onChange = fn;

@@ -1,39 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Offer } from '../../core/interfaces/offer-detail.interface';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'offer-list-component',
-    templateUrl: 'offer-list.component.html',
-    styleUrls: ['offer-list.component.scss'],
+    selector: 'offer-lis-component',
+    templateUrl: './offer-list.component.html',
+    styleUrls: ['./offer-list.component.scss'],
     standalone: true,
     imports: [
-        NzDividerModule, NzTableModule
+        CommonModule,
+        NzDividerModule,
+        NzTableModule
     ]
 })
-
 export class OfferListComponent implements OnInit {
-    listOfData: any[] = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park'
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 42,
-            address: 'London No. 1 Lake Park'
-        },
-        {
-            key: '3',
-            name: 'Joe Black',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park'
-        }
-    ];
-    constructor() { }
+    offerData: Offer[] = [];
 
-    ngOnInit() { }
+    constructor(private route: ActivatedRoute) { }
+
+    ngOnInit(): void {
+
+        this.offerData.push(window.history.state.offerData);
+
+        if (this.offerData) {
+            console.log('data:', this.offerData);
+        } else {
+            console.log('data not found.');
+        }
+    }
 }

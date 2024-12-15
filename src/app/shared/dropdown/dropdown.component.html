@@ -1,9 +1,18 @@
-<div *ngIf="type === 'countryCity'">
-    <div class="example-input">
-        <input class="w-100" placeholder="Select Country/City" nz-input [(ngModel)]="inputValue"
-            (ngModelChange)="onChangeInput($event)" [nzAutocomplete]="auto" />
-        <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
-    </div>
+<div class="example-input" *ngIf="type === 'countryCity'">
+    <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+        <input placeholder="Select Country/City" nz-input [(ngModel)]="inputValue"
+            (ngModelChange)="onChangeInput($event);onSearch($event)" [nzAutocomplete]="auto" />
+    </nz-input-group>
+    <ng-template #suffixIcon>
+        <span nz-icon nzType="search"></span>
+    </ng-template>
+    <nz-autocomplete #auto>
+        <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="group.title">
+            <nz-auto-option *ngFor="let option of group.children" [nzValue]="option.title">
+                {{ option.title }}
+            </nz-auto-option>
+        </nz-auto-optgroup>
+    </nz-autocomplete>
 </div>
 
 <div *ngIf="type !== 'countryCity'">
