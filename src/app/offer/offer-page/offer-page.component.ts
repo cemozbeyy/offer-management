@@ -6,13 +6,20 @@ import { ToastrService } from 'ngx-toastr';
 import { Dimension, Offer } from '../../core/interfaces/offer-detail.interface';
 import { DimensionRecord } from '../../core/types';
 import { DropdownComponent } from '../../shared';
+import { AutoComplateDropdownComponent } from '../../shared/autocomplate-dropdown/autocomplate-dropdown.component';
 
+type ModeOptions = 'LCL' | 'FCL' | 'Air';
+type MovementTypeOptions = 'Door to Door' | 'Port to Door' | 'Door to Port' | 'Port to Port';
+type IncotermOptions = 'Delivered Duty Paid (DDP)' | 'Delivered At Place (DAT)';
+type PackageTypeOptions = 'Pallets' | 'Boxes' | 'Cartons';
+type UnitOptions = 'CM' | 'IN' | 'KG' | 'LB';
+type CurrencyOptions = { value: string, label: string };
 @Component({
   selector: 'offer-page-component',
   templateUrl: './offer-page.component.html',
   styleUrls: ['./offer-page.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, NzButtonModule, DropdownComponent]
+  imports: [ReactiveFormsModule, NzButtonModule, DropdownComponent, AutoComplateDropdownComponent]
 })
 export class OfferPageComponent implements OnInit {
   form: FormGroup = new FormGroup<Offer>({
@@ -36,6 +43,31 @@ export class OfferPageComponent implements OnInit {
     'Pallet': { width: 40, length: 48, height: 60 }
   };
 
+  //hata almak için dummy data 
+  // dimensions: DimensionRecord = {
+  //   'Carton': { width: 12, length: 12, height: 12 },
+  //   'Box': { width: 24, length: 16, height: 12 },   
+  //   'Pallet': { width: 100, length: 120, height: 100 } 
+  // };
+
+  // Seçenekler START
+  modes: ModeOptions[] = ['LCL', 'FCL', 'Air'];
+  movementTypes: MovementTypeOptions[] = ['Door to Door', 'Port to Door', 'Door to Port', 'Port to Port'];
+  incoterms: IncotermOptions[] = ['Delivered Duty Paid (DDP)', 'Delivered At Place (DAT)'];
+  countriesCities: Record<string, string[]> = {
+    'USA': ['New York', 'Los Angeles', 'Miami', 'Minnesota'],
+    'China': ['Beijing', 'Shanghai'],
+    'Turkey': ['Istanbul', 'Izmir']
+  };
+  packageTypes: PackageTypeOptions[] = ['Pallets', 'Boxes', 'Cartons'];
+  units1: UnitOptions[] = ['CM', 'IN'];
+  units2: UnitOptions[] = ['KG', 'LB'];
+  currencies: CurrencyOptions[] = [
+    { value: 'USD', label: 'US Dollar' },
+    { value: 'CNY', label: 'Chinese Yuan' },
+    { value: 'TRY', label: 'Turkish Lira' }
+  ];
+  // Seçenekler END
 
 
   ngOnInit(): void {

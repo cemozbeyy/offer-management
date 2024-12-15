@@ -1,0 +1,16 @@
+<div>
+    <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+        <input placeholder="Select Country/City" nz-input [(ngModel)]="inputValue"
+            (ngModelChange)="onChangeInput($event); onSearch($event)" [nzAutocomplete]="auto" />
+    </nz-input-group>
+    <ng-template #suffixIcon>
+        <span nz-icon nzType="search"></span>
+    </ng-template>
+    <nz-autocomplete #auto>
+        <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="group.title">
+            <nz-auto-option *ngFor="let option of group.children" [nzValue]="option.title">
+                {{ option.title }}
+            </nz-auto-option>
+        </nz-auto-optgroup>
+    </nz-autocomplete>
+</div>

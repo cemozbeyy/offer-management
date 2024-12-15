@@ -1,14 +1,35 @@
 <div class="offer-page">
     <div class="offer-page-filter">
         <form [formGroup]="form" (ngSubmit)="onSave()">
-            <dropdown-component formControlName="mode" [type]="'mode'"></dropdown-component>
-            <dropdown-component formControlName="movementType" [type]="'movementType'"></dropdown-component>
-            <dropdown-component formControlName="incoterms" [type]="'incoterms'"></dropdown-component>
-            <dropdown-component formControlName="countryCity" [type]="'countryCity'"></dropdown-component>
-            <dropdown-component formControlName="packageType" [type]="'packageType'"></dropdown-component>
-            <dropdown-component formControlName="unit1" [type]="'unit1'"></dropdown-component>
-            <dropdown-component formControlName="unit2" [type]="'unit2'"></dropdown-component>
-            <dropdown-component formControlName="currency" [type]="'currency'"></dropdown-component>
+            <div class="pb-3">
+                <dropdown-component [options]="modes" formControlName="mode" type="mode"></dropdown-component>
+            </div>
+            <div class="pb-3">
+                <dropdown-component [options]="movementTypes" formControlName="movementType"
+                    type="movementType"></dropdown-component>
+            </div>
+            <div class="pb-3">
+                <dropdown-component [options]="incoterms" formControlName="incoterms"
+                    [type]="'incoterms'"></dropdown-component>
+            </div>
+            <div class="pb-3">
+                <autocomplate-dropdown-component [options]="countriesCities" formControlName="countryCity"
+                    type="countryCity"></autocomplate-dropdown-component>
+            </div>
+            <div class="pb-3">
+                <dropdown-component [options]="packageTypes" formControlName="packageType"
+                    type="packageType"></dropdown-component>
+            </div>
+            <div class="pb-3">
+                <dropdown-component [options]="units1" formControlName="unit1" type="unit1"></dropdown-component>
+            </div>
+            <div class="pb-3">
+                <dropdown-component [options]="units2" formControlName="unit2" type="unit2"></dropdown-component>
+            </div>
+            <div>
+                <dropdown-component [options]="currencies" formControlName="currency"
+                    type="currency"></dropdown-component>
+            </div>
             <br />
             <button class="w-100" nz-button nzType="primary" type="submit">Save</button>
         </form>

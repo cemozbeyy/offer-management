@@ -1,23 +1,9 @@
-<div class="example-input" *ngIf="type === 'countryCity'">
-    <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
-        <input placeholder="Select Country/City" nz-input [(ngModel)]="inputValue"
-            (ngModelChange)="onChangeInput($event);onSearch($event)" [nzAutocomplete]="auto" />
-    </nz-input-group>
-    <ng-template #suffixIcon>
-        <span nz-icon nzType="search"></span>
-    </ng-template>
-    <nz-autocomplete #auto>
-        <nz-auto-optgroup *ngFor="let group of optionGroups" [nzLabel]="group.title">
-            <nz-auto-option *ngFor="let option of group.children" [nzValue]="option.title">
-                {{ option.title }}
-            </nz-auto-option>
-        </nz-auto-optgroup>
-    </nz-autocomplete>
-</div>
-
-<div *ngIf="type !== 'countryCity'">
+<div>
     <nz-select class="w-100" [nzPlaceHolder]="getPlaceholder()" [(ngModel)]="selectedValue"
         (ngModelChange)="onSelectChange($event)">
-        <nz-option *ngFor="let option of getOptions()" [nzValue]="option" [nzLabel]="option"></nz-option>
+        <nz-option *ngFor="let option of getOptions()"
+            [nzValue]="isDropdownOptionObject(option) ? option.value : option"
+            [nzLabel]="isDropdownOptionObject(option) ? option.label : option">
+        </nz-option>
     </nz-select>
 </div>
