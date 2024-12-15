@@ -36,7 +36,6 @@ export class SignUpComponent implements OnInit {
             username: ['', [Validators.required]],
             password: ['', [Validators.required]],
             repassword: ['', [Validators.required]],
-            isLogin: true
         });
     }
 
@@ -50,7 +49,15 @@ export class SignUpComponent implements OnInit {
             setTimeout(() => {
                 this.router.navigate(['/login']);
             }, 700);
-        } else {
+        } else if (this.validateSignUpForm.value.password === this.validateSignUpForm.value.repassword) {
+            Object.values(this.validateSignUpForm.controls).forEach(control => {
+                if (control.invalid) {
+                    control.markAsDirty();
+                    control.updateValueAndValidity({ onlySelf: true });
+                }
+            });
+        }
+        else {
             this.toastr.error('Parolalar uyuşmuyor !!');
         }
     }
