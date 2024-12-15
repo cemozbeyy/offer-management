@@ -7,6 +7,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../login.service';
+import { LS_USER_COOKIE } from '../../core/constants';
 
 @Component({
     selector: 'signup-component',
@@ -44,7 +45,7 @@ export class SignUpComponent implements OnInit {
         if (this.validateSignUpForm.valid && this.validateSignUpForm.value.password === this.validateSignUpForm.value.repassword) {
             const userList = this.loginService.getUserList();
             userList.push(this.validateSignUpForm.value);
-            localStorage.setItem('userCookie', JSON.stringify(userList));
+            localStorage.setItem(LS_USER_COOKIE, JSON.stringify(userList));
             this.toastr.success('Kayıt Başarılı !!');
             setTimeout(() => {
                 this.router.navigate(['/login']);
