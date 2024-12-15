@@ -1,0 +1,14 @@
+<div *ngIf="type === 'countryCity'">
+    <div class="example-input">
+        <input class="w-100" placeholder="Select Country/City" nz-input [(ngModel)]="inputValue"
+            (ngModelChange)="onChangeInput($event)" [nzAutocomplete]="auto" />
+        <nz-autocomplete [nzDataSource]="filteredOptions" #auto></nz-autocomplete>
+    </div>
+</div>
+
+<div *ngIf="type !== 'countryCity'">
+    <nz-select class="w-100" [nzPlaceHolder]="getPlaceholder()" [(ngModel)]="selectedValue"
+        (ngModelChange)="onSelectChange($event)">
+        <nz-option *ngFor="let option of getOptions()" [nzValue]="option" [nzLabel]="option"></nz-option>
+    </nz-select>
+</div>

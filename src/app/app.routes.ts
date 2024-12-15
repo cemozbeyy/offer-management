@@ -11,6 +11,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {
+                path: '',
+                redirectTo: 'offer-page',
+                pathMatch: 'full'
+            },
+            {
                 path: 'offer-list',
                 component: OfferListComponent,
             },

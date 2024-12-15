@@ -1,1 +1,16 @@
-offer-page
+<div class="offer-page">
+    <div class="offer-page-filter">
+        <form [formGroup]="form" (ngSubmit)="onSave()">
+            <dropdown-component formControlName="mode" [type]="'mode'"></dropdown-component>
+            <dropdown-component formControlName="movementType" [type]="'movementType'"></dropdown-component>
+            <dropdown-component formControlName="incoterms" [type]="'incoterms'"></dropdown-component>
+            <dropdown-component formControlName="countryCity" [type]="'countryCity'"></dropdown-component>
+            <dropdown-component formControlName="packageType" [type]="'packageType'"></dropdown-component>
+            <dropdown-component formControlName="unit1" [type]="'unit1'"></dropdown-component>
+            <dropdown-component formControlName="unit2" [type]="'unit2'"></dropdown-component>
+            <dropdown-component formControlName="currency" [type]="'currency'"></dropdown-component>
+            <br />
+            <button class="w-100" nz-button nzType="primary" type="submit">Save</button>
+        </form>
+    </div>
+</div>
