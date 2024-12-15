@@ -31,7 +31,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
 
     selectedValue: string | null = null;
     optionGroups: AutocompleteOptionGroups[] = [];
-    searchValue: string = '';  // Kullanıcı arama terimi
+
     filteredOptions: string[] = []; // aranan kelimeye göre gelen değer
     inputValue?: string;  // kullanıcının girdiği değer
     filteredCities: string[] = []; // kullanıcı arama yaptığıda filtrelenecek şehirler
